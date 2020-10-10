@@ -35,32 +35,34 @@ def main():
     """
     Executes if script is run as main script.
     """
-    #initialize pygame module
+    # initialize pygame module
     pygame.init()
 
-    #load and set logo
-    logo = pygame.image.load('.assets\icon.jpg')
-    pygame.display.set_icon(logo)
-    pygame.display.set_caption('Random color generator')
-    
-    #create a surface on screen that has a size of 240x180
+    # create a surface on screen that has a size of 240x180
     screen = pygame.display.set_mode((240,180))
 
-    running = True #variable controlling main loop
+    # load and set logo (.convert() changes pixel format ie, the way color information about a specific
+    # pixel is stored. If surface format isnt the same as display format, conversion will have to take place 
+    # everytime, so there's significant performance increase in using .convert())
+    # Correction - Convert is making it so that the icon isn't displayed properly, no clue why.
+    logo = pygame.image.load('.assets\icon.jpg') # .convert()
+    pygame.display.set_icon(logo)
+    pygame.display.set_caption('Random color generator')
 
-    #main loop
+    running = True # variable controlling main loop
+
+    # main loop
     while running:
-        #event handling, gets all events from event queue
+        # event handling, gets all events from event queue
         for event in pygame.event.get():
-            #only do something if event type is QUIT
+            # only do something if event type is QUIT
             if event.type == pygame.QUIT:
-                #change value of running, thereby exiting main loop
+                # change value of running, thereby exiting main loop
                 running = False
-    
-"""
-    Run main function only if this module is executed as main script.
-    If you import this module nothing is executed
-"""
 
 if __name__ =="__main__":
+    """
+    Run main function only if this module is executed as main script.
+    If you import this module nothing is executed
+    """
     main()
