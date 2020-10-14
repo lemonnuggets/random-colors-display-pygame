@@ -90,6 +90,9 @@ def main():
             if event.type == pygame.QUIT:
                 # change value of running, thereby exiting main loop
                 running = False
+            elif event.type == pygame.MOUSEBUTTONDOWN:
+                screen.fill(random_rgb_color())
+        pygame.display.update()
 
 if __name__ =="__main__":
     """
