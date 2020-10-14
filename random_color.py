@@ -27,7 +27,7 @@ def get_random_hex_digit():
     elif random_binary_digit == 15:
         return 'F'
 
-def random_color():
+def random_hsb_color():
     """
     This function returns a random color in HSB format as a string.
     """
@@ -35,6 +35,33 @@ def random_color():
     hex_list = [get_random_hex_digit() for i in range(0,6)]
     color += "".join(hex_list)
     return color
+
+def random_rgb_color():
+    """
+    This function returns a random color in HSB format as (r, g, b)
+    """
+    return hsb_to_rgb(random_hsb_color())
+
+def hex_to_dec(hex_):
+    """
+    Converts hexadecimal number to decimal number
+    """
+    return int(hex_, 16)
+    
+def hsb_to_rgb(hsb):
+    """
+    Converts HSB color to RGB and returns value in format (r,g,b)
+    """
+    hsb_r = hsb[1:3]
+    hsb_g = hsb[3:5]
+    hsb_b = hsb[5:]
+
+    rgb_r = hex_to_dec(hsb_r)
+    rgb_g = hex_to_dec(hsb_g)
+    rgb_b = hex_to_dec(hsb_b)
+    
+    return (rgb_r, rgb_g, rgb_b)
+
 
 def main():
     """
@@ -44,7 +71,7 @@ def main():
     pygame.init()
 
     # create a surface on screen that has a size of 240x180
-    screen = pygame.display.set_mode((240,180))
+    screen = pygame.display.set_mode((800, 600))
 
     # load and set logo (.convert() changes pixel format ie, the way color information about a specific
     # pixel is stored. If surface format isnt the same as display format, conversion will have to take place 
@@ -53,7 +80,6 @@ def main():
     logo = pygame.image.load('.assets\icon.jpg') # .convert()
     pygame.display.set_icon(logo)
     pygame.display.set_caption('Random color generator')
-
     running = True # variable controlling main loop
 
     # main loop
@@ -65,7 +91,6 @@ def main():
                 # change value of running, thereby exiting main loop
                 running = False
 
-print(random_color())
 if __name__ =="__main__":
     """
     Run main function only if this module is executed as main script.
