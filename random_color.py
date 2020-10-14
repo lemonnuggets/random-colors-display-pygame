@@ -4,6 +4,9 @@ To generate random colors.
 import random
 import math
 import pygame
+WIDTH = 800
+HEIGHT = 600
+NUM = 500
 def get_random_hex_digit():
     """
     Returns a random hex digit as a string (0 - F)
@@ -62,6 +65,33 @@ def hsb_to_rgb(hsb):
     
     return (rgb_r, rgb_g, rgb_b)
 
+def get_median_factors_of(x):
+    """
+    Returns factors of given integer such that the difference between the two factors is minimum.
+    """
+    root = math.floor(math.sqrt(x))
+    for a in range(root, 1, -1):
+        if x % a == 0:
+            return [a, x // a]
+
+def generate_random_colored_surfaces(num):
+    """
+    Generates specified number of colored surfaces.
+    """
+    factors = get_median_factors_of(num)
+    surfaces = []
+    surface_width = math.floor(WIDTH / factors[1])
+    surface_height = math.floor(HEIGHT / factors[0])
+    for x in range(0, WIDTH, surface_width):
+        for y in range(0, HEIGHT, surface_height):
+            surface = pygame.Surface((surface_width, surface_height))
+            surface.fill(random_rgb_color())
+            surfaces.append((surface, x, y))
+    
+    return surfaces, surface_width, surface_height
+
+    
+
 
 def main():
     """
@@ -71,7 +101,7 @@ def main():
     pygame.init()
 
     # create a surface on screen that has a size of 240x180
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
     # load and set logo (.convert() changes pixel format ie, the way color information about a specific
     # pixel is stored. If surface format isnt the same as display format, conversion will have to take place 
@@ -91,8 +121,13 @@ def main():
                 # change value of running, thereby exiting main loop
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                screen.fill(random_rgb_color())
-        pygame.display.update()
+                # screen.fill(random_rgb_color())
+                list_of_surface_wrappers, surface_width, surface_height = generate_random_colored_surfaces(NUM)
+                # print(list_of_surface_wrappers,surface_width,surface_height)
+                for surface_wrapper in list_of_surface_wrappers:
+                    surface, x, y = surface_wrapper
+                    screen.blit(surface, (x, y))
+                pygame.display.update()
 
 if __name__ =="__main__":
     """
