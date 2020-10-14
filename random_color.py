@@ -11,10 +11,9 @@ def get_random_hex_digit():
     """
     Returns a random hex digit as a string (0 - F)
     """
-    random_binary_digit = math.floor(random.random() * 16) 
+    random_binary_digit = math.floor(random.random() * 16)
     if random_binary_digit == 16:
         random_binary_digit -= 1
-    
     if random_binary_digit < 10:
         return str(random_binary_digit)
     elif random_binary_digit == 10:
@@ -50,7 +49,7 @@ def hex_to_dec(hex_):
     Converts hexadecimal number to decimal number
     """
     return int(hex_, 16)
-    
+
 def hsb_to_rgb(hsb):
     """
     Converts HSB color to RGB and returns value in format (r,g,b)
@@ -62,7 +61,7 @@ def hsb_to_rgb(hsb):
     rgb_r = hex_to_dec(hsb_r)
     rgb_g = hex_to_dec(hsb_g)
     rgb_b = hex_to_dec(hsb_b)
-    
+
     return (rgb_r, rgb_g, rgb_b)
 
 def get_median_factors_of(x):
@@ -87,11 +86,8 @@ def generate_random_colored_surfaces(num):
             surface = pygame.Surface((surface_width, surface_height))
             surface.fill(random_rgb_color())
             surfaces.append((surface, x, y))
-    
+
     return surfaces
-
-    
-
 
 def main():
     """
@@ -103,9 +99,10 @@ def main():
     # create a surface on screen that has a size of 240x180
     screen = pygame.display.set_mode((WIDTH, HEIGHT))
 
-    # load and set logo (.convert() changes pixel format ie, the way color information about a specific
-    # pixel is stored. If surface format isnt the same as display format, conversion will have to take place 
-    # everytime, so there's significant performance increase in using .convert())
+    # load and set logo (.convert() changes pixel format ie, the way color information about a
+    # specific pixel is stored. If surface format isnt the same as display format, conversion
+    # will have to take place everytime, so there's significant performance increase in
+    # using .convert())
     # Correction - Convert is making it so that the icon isn't displayed properly, no clue why.
     logo = pygame.image.load('.assets\icon.jpg') # .convert()
     pygame.display.set_icon(logo)
