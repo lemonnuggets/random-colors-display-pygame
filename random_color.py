@@ -88,7 +88,7 @@ def generate_random_colored_surfaces(num):
             surface.fill(random_rgb_color())
             surfaces.append((surface, x, y))
     
-    return surfaces, surface_width, surface_height
+    return surfaces
 
     
 
@@ -122,7 +122,7 @@ def main():
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 # screen.fill(random_rgb_color())
-                list_of_surface_wrappers, surface_width, surface_height = generate_random_colored_surfaces(NUM)
+                list_of_surface_wrappers = generate_random_colored_surfaces(NUM)
                 # print(list_of_surface_wrappers,surface_width,surface_height)
                 for surface_wrapper in list_of_surface_wrappers:
                     surface, x, y = surface_wrapper
@@ -130,8 +130,6 @@ def main():
                 pygame.display.update()
 
 if __name__ =="__main__":
-    """
-    Run main function only if this module is executed as main script.
-    If you import this module nothing is executed
-    """
+    # Run main function only if this module is executed as main script.
+    # If you import this module nothing is executed
     main()
