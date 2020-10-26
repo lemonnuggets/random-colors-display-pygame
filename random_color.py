@@ -6,7 +6,7 @@ import math
 import pygame
 WIDTH = 800
 HEIGHT = 600
-NUM = 500
+NUM = 50
 def get_random_hex_digit():
     """
     Returns a random hex digit as a string (0 - F)
@@ -73,21 +73,18 @@ def get_median_factors_of(x):
         if x % a == 0:
             return [a, x // a]
 
-def generate_random_colored_surfaces(num):
+def draw(screen):
     """
-    Generates specified number of colored surfaces.
+    All the drawing stuff
     """
-    factors = get_median_factors_of(num)
-    surfaces = []
-    surface_width = math.floor(WIDTH / factors[1])
-    surface_height = math.floor(HEIGHT / factors[0])
-    for x in range(0, WIDTH, surface_width):
-        for y in range(0, HEIGHT, surface_height):
-            surface = pygame.Surface((surface_width, surface_height))
-            surface.fill(random_rgb_color())
-            surfaces.append((surface, x, y))
-
-    return surfaces
+    factors = get_median_factors_of(NUM)
+    shape_width = math.floor(WIDTH / factors[1])
+    shape_height = math.floor(HEIGHT / factors[0])
+    rad = min((shape_width, shape_height)) // 2
+    for x in range(0, WIDTH, shape_width):
+        for y in range(0, HEIGHT, shape_height):
+            # pygame.draw.ellipse(screen, random_rgb_color(), (x, y, shape_width, shape_height), 3)
+            pygame.draw.circle(screen, random_rgb_color(), (x + rad, y + rad), rad)
 
 def main():
     """
@@ -118,12 +115,7 @@ def main():
                 # change value of running, thereby exiting main loop
                 running = False
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                # screen.fill(random_rgb_color())
-                list_of_surface_wrappers = generate_random_colored_surfaces(NUM)
-                # print(list_of_surface_wrappers,surface_width,surface_height)
-                for surface_wrapper in list_of_surface_wrappers:
-                    surface, x, y = surface_wrapper
-                    screen.blit(surface, (x, y))
+                draw(screen)
                 pygame.display.update()
 
 if __name__ =="__main__":
